@@ -1,15 +1,15 @@
 
 'use strict';
 
-const fs = require('fs/promises');
-const os = require('os');
-const path = require('path');
-const { uid } = require('../dist/cjs/utils/uid');
-const { MemoryLevel } = require('memory-level');
-const { ClassicLevel } = require('classic-level');
-const { DataFactory } = require('rdf-data-factory');
+import fs from 'fs/promises';
+import os from 'os';
+import path from 'path';
+import { uid } from '../dist/esm/utils/uid';
+import { MemoryLevel } from 'memory-level';
+import { ClassicLevel } from 'classic-level';
+import { DataFactory } from 'rdf-data-factory';
 
-require('./fpstring')();
+require('./fpstring').runFpstringTests();
 
 describe('MemoryLevel backend', () => {
 
@@ -76,7 +76,7 @@ describe('MemoryLevel backend, standard indexes, with prefixes', () => {
     this.indexes = null;
     this.dataFactory = new DataFactory();
     this.prefixes = {
-      expandTerm: (term) => {
+      expandTerm: (term: string) => {
         if (term.startsWith('xsd:')) {
           return `http://www.w3.org/2001/XMLSchema#${term.slice(4)}`;
         }
@@ -88,7 +88,7 @@ describe('MemoryLevel backend, standard indexes, with prefixes', () => {
         }
         return term;
       },
-      compactIri: (iri) => {
+      compactIri: (iri: string) => {
         if (iri.startsWith('http://www.w3.org/2001/XMLSchema#')) {
           return `xsd:${iri.slice(33)}`;
         }

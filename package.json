@@ -30,7 +30,8 @@
     "dev": "npm run clean && tsc -p tsconfig.cjs.json --watch",
     "clean": "rm -rf dist",
     "watch:cjs": "rm -rf dist/cjs && mkdir -p dist/cjs && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json && tsc --watch -p tsconfig.cjs.json",
-    "build:esm-fix-import-paths": "node fix-esm-import-paths.js",
+    "test:build": "cd test && tsc && node ../fix-esm-import-paths.js .",
+    "build:esm-fix-import-paths": "node fix-esm-import-paths.js ./dist/esm",
     "build:esm": "tsc -p tsconfig.esm.json && echo '{\"type\": \"module\"}' > dist/esm/package.json && npm run build:esm-fix-import-paths",
     "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
     "build": "npm run clean && npm run build:esm && npm run build:cjs",
@@ -47,6 +48,7 @@
     "url": "https://github.com/belayeng/quadstore.git"
   },
   "devDependencies": {
+    "@types/mocha": "^9.1.1",
     "@types/n3": "^1.10.4",
     "classic-level": "^1.2.0",
     "memory-level": "^1.0.0",

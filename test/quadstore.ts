@@ -1,17 +1,14 @@
-/* eslint global-require: "off" */
 
-'use strict';
-
-const {Quadstore} = require('..');
+import { Quadstore } from '..';
 
 module.exports = () => {
 
   describe('Constructor', () => {
-    it('should throw if backend is not an instance of AbstractLevel', (done) => {
+    it('should throw if backend is not an instance of AbstractLevel', function (done) {
       try {
         new Quadstore({
-          dataFactory: this.dataFactory,
-          backend: 5,
+          dataFactory: (this.dataFactory as any),
+          backend: (5 as any),
         });
       } catch (err) {
         done();
